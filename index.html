@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="header-top">
+        <a class="dropdown header-top__item">
+            <a class="dropdown-toggle header-nav__item _white" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                en
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('change_lang', $key)}}">en</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('change_lang', $key)}}">ru</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('change_lang', $key)}}">kz</a>
+                    </li>
+            </ul>
+        </a>
+        <div class="header-top__item _has-icon">
+            <img src="./images/icons/tel.svg" alt="{{ setting_helper('component_header', 'tel') }}">
+            <span>
+              <strong><a href="tel:+77777777777}"> +77777777777 </a></strong>
+            </span>
+        </div>
+    </div>
+    <header id="header">
+        <a href="#" class="header-logo">
+             <img src="./images/logo.svg" alt="">
+        </a>
+        <div class="header-nav">
+            <a href="{{ route('contacts') }}" class="header-nav__item" id="dropdownMenuButton2">
+                contacts
+            </a>
+            <a href="{{ route('about') }}" class="header-nav__item __mobile-add" id="dropdownMenuButton2">
+                about
+            </a>
+            <a href="{{ route('vacancies') }}" class="header-nav__item __mobile-add" id="dropdownMenuButton2">
+                vacancies
+            </a>
+            <a href="{{ route('post-all') }}" class="header-nav__item __mobile-add" id="dropdownMenuButton2">
+                posts
+            </a>
+
+                <a class="header-nav__item _icon" onclick="activateLog(this, event)">
+                    <img src="./images/icons/cabinet-active.svg" alt="">
+                </a>
+                <div class="drop-menu" onclick="stopProp(event)">
+                    <a href="{{ route('cabinet.client') }}" class="element">client_personal_account</a>
+                    <a href="{{ route('cabinet.client.appointment') }}" class="element">client_appointments</a>
+                    <a href="{{ route('cabinet.client.documents') }}" class="element">client_documents</a>
+                    <a href="{{ route('cabinet.my_doctors') }}" class="element">client_doctors</a>
+                    <a href="{{ route('cabinet.profile') }}" class="element">client_profile</a>
+                    <a href="{{ route('cabinet.client.settings') }}" class="element">client_settings</a>
+                </div>
+        </div>
+    </header>
+
+    <div class="mobile-header">
+        <a href="#" class="mobile-header-logo">
+            <img src="./images/logo.svg" class="logo-mobile" alt="{{ setting_helper('component_header', 'logo') }}">
+        </a>
+        <div class="burger-group">
+            <div class="header-burger burger" id="burger">
+                <div class="__line"></div>
+                <div class="__line"></div>
+                <div class="__line"></div>
+            </div>
+    
+                <a class="header-nav__item _icon" onclick="activateLog(this, event)">
+                    <img src="./images/icons/cabinet-active.svg" alt="">
+                </a>
+                <div class="drop-menu" onclick="stopProp(event)">
+                    <a href="{{ route('cabinet.client') }}" class="element">client_personal_account</a>
+                    <a href="{{ route('cabinet.client.appointment') }}" class="element">client_appointments</a>
+                    <a href="{{ route('cabinet.client.documents') }}" class="element">client_documents</a>
+                    <a href="{{ route('cabinet.my_doctors') }}" class="element">client_doctors</a>
+                    <a href="{{ route('cabinet.profile') }}" class="element">client_profile</a>
+                    <a href="{{ route('cabinet.client.settings') }}" class="element">client_settings</a>
+                </div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener("load", () => {
+            let text = document.querySelector('.dropdown-toggle.header-nav__item._white').innerText.toUpperCase()
+            document.querySelector('.dropdown-toggle.header-nav__item._white').innerHTML = text
+            if (document.getElementById('count-badge-js')) {
+                document.getElementById('count-badge-js').innerHTML = document.getElementById('count-badge-data').innerHTML
+                document.getElementById('count-badge').innerHTML = document.getElementById('count-badge-data').innerHTML
+            }
+        })
+    </script>
+    <!-- script login -->
+    <script>
+        activateLog = (value, event) => {
+            event.stopPropagation()
+            value.parentElement.parentElement.querySelector('.drop-menu').classList.toggle('active')
+        }
+        stopProp = (event) => {
+            event.stopPropagation()
+        }
+        window.addEventListener("click", () => {
+            let dropmenu = document.querySelectorAll('.drop-menu')
+            dropmenu.forEach(element => {
+                element.classList.remove('active')
+            });
+        })
+    </script>
+    <!-- script login -->
+    <script>
+        window.addEventListener('ableGlobalSearch', event => {
+            document.querySelectorAll('#dropdownMenuButton2').forEach(el => { el.classList.add('__dnone') });
+        })
+        window.addEventListener('disableGlobalSearch', event => {
+            document.querySelectorAll('#dropdownMenuButton2').forEach(el => { el.classList.remove('__dnone') });
+        })
+    </script>
+    <script>
+        function activateCart() {
+            const cart = document.getElementById('cart')
+            if (cart) cart.classList.add('active')
+        }
+        function deactivateCart() {
+            const cart = document.getElementById('cart')
+            if (cart) cart.classList.remove('active')
+        }
+        function stop(e) {
+            e.stopPropagation()
+        }
+        function FilterByInput(value) {
+            const persons = document.querySelectorAll('.search-popup__section__item')
+            persons.forEach(person => {
+                const personName = person.querySelector('.search-popup__section__item span')
+                if (!person.classList.contains('hide') && personName.textContent.trim().toLowerCase().indexOf(value.toLowerCase()) <= -1) {
+                    person.classList.add('hide')
+                } else if (personName.textContent.trim().toLowerCase().indexOf(value.toLowerCase()) > -1) {
+                    person.classList.remove('hide')
+                }
+            })
+            const searchSections = document.querySelectorAll('.search-popup__section')
+            if(searchSections) {
+                searchSections.forEach(block => {
+                    let blockElem = block.querySelector('.search-popup__section__item:not(.hide)')
+                    if (!blockElem) block.classList.add('hide')
+                    else block.classList.remove('hide')
+                })
+            }
+        }
+        function searchPopup(search) {
+            event.stopPropagation()
+            search.classList.add('active')
+            search.parentElement.parentElement.querySelector('.search-popup').classList.add('active')
+            document.body.classList.add('header-frz')
+            search.parentElement.classList.add('active')
+            menuItem = document.querySelectorAll('#dropdownMenuButton2')
+            menuItem.forEach(element => {
+                element.classList.add('dnone')
+            });
+        }
+        window.addEventListener('scroll', () => {
+            let scrollpos = window.scrollY;
+            if(scrollpos > 30){
+                document.querySelector('.mobile-header').classList.add('scrolled')
+                document.querySelector('.search-popup').style.top = '25px'
+                document.querySelector('#searchInput').style.top = '2.8rem'
+            }
+            else{
+                document.querySelector('.mobile-header').classList.remove('scrolled')
+                document.querySelector('.search-popup').style.top = ''
+                document.querySelector('#searchInput').style.top = ''
+            }
+        })
+    
+        function MobilesearchActive(val, e) {
+            e.stopPropagation()
+            document.getElementById('header').classList.remove('active')
+            val.classList.add('acitve')
+            val.parentElement.querySelector('.header-nav__item._input').click()
+            document.querySelector('.mobile-header').classList.add('mobile')
+        }
+    
+        window.addEventListener('click', () => {
+            document.body.classList.remove('header-frz')
+            let deactivateSerach = () => false
+            if (deactivateSerach) deactivateSerach()
+        })
+    
+        function disableSearchClick() {
+            setTimeout(() => {
+                document.querySelectorAll('#dropdownMenuButton2').forEach(el => { el.classList.remove('__dnone') });
+                document.querySelector('.mobile-search').classList.remove('acitve')
+                document.querySelector('.mobile-header').classList.remove('mobile')
+            }, 350);
+        }
+    
+    
+    </script>
+    <script>
+        window.addEventListener("load", () => {
+            let pageLang = document.querySelector('.dropdown-toggle.header-nav__item._white').innerText
+            let pageSelectLang = document.querySelectorAll('.dropdown-item')
+            pageSelectLang.forEach(element => {
+                if(pageLang.toUpperCase() === element.innerText.toUpperCase()){
+                    element.remove()
+                }
+            });
+        })
+    </script>
+    
+
+<section class="profile">
+    <div class="profile__side" wire:ignore>
+            <a href="{{ route('cabinet.client') }}"
+               class="profile__side__item active">
+                <div class="profile__side__item__icon _small-icon">
+                </div>
+            </a>
+            <a href="{{ route('cabinet.client.appointment') }}"
+               class="profile__side__item {{ request()->routeIs('cabinet.client.appointment') ? 'active' : '' }}">
+                <div class="profile__side__item__icon">
+                </div>
+            </a>
+            <a href="{{ route('cabinet.client.documents') }}"
+               class="profile__side__item {{ request()->routeIs('cabinet.client.documents') ? 'active' : '' }}">
+                <div class="profile__side__item__icon">
+                </div>
+            </a>
+            <a href="{{ route('cabinet.my_doctors') }}"
+               class="profile__side__item {{ request()->routeIs('cabinet.my_doctors') ? 'active' : '' }}">
+                <div class="profile__side__item__icon">
+                </div>
+            </a>
+            <a href="{{ route('cabinet.client.wallet') }}"
+               class="profile__side__item {{ request()->routeIs('cabinet.client.wallet') ? 'active' : '' }}">
+                <div class="profile__side__item__icon">
+                </div>
+            </a>
+            <a href="{{ route('cabinet.client.settings') }}"
+               class="profile__side__item {{ request()->routeIs('cabinet.client.settings') ? 'active' : '' }}">
+                <div class="profile__side__item__icon _setting">
+                </div>
+            </a>
+    </div>
+    
+
+    <div class="doctor-pacient active mypacient">
+        <div class="profile__content history pacient">
+            <div class="text-cabinet-flex _nowrap">
+                <div class="doctor-search">
+                    <span class="text-cabinet _nowrap"><span class="_big"><x-setting column="doctor_my_patients" key="main_title"/></span></span>
+                    <div class="input-cabinet-doctor">
+                        <img src="./images/icons/search.png">
+                        <input type="text" placeholder="Поиск пациента" oninput = "searchPatient(this)">
+                    </div>
+                </div>
+                <a class="add-pacient _addMypatients" data-bs-target="#addPatient" data-bs-toggle="modal">
+                    <img src="./images/icons/plus.png"><span>Добавить пациента</span>
+                </a>
+            </div>
+            <div class="profile__content__table history__table _nth pt0">
+                <div class="blog-detail__table__rows__wrapper">
+                    <div class="blog-detail__table__rows">
+                        <div class="row _head">
+                            <div class="col col-2">Имя/Фамилия</div>
+                            <div class="col col-2">Дата рождения</div>
+                            <div class="col col-2 _center">Пол</div>
+                            <div class="col col-2 _center">Профиль</div>
+                            <div class="col col-1 _center">
+                                <select class="selection-select" onchange="sortByBirthday(this)">
+                                    <option value selected disabled hidden>Сортировка по дням рождения</option>
+                                    <option>По Возрастанию</option>
+                                    <option>По Убыванию</option>
+                                </select>
+                                <select class="selection-select" onchange="sortByVisit(this)">
+                                    <option value selected disabled hidden>Сортировка по посещению</option>
+                                    <option>По Возрастанию</option>
+                                    <option>По Убыванию</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    <div id="placeData">
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="doctor-cabinet-pagination">
+                <div class="doctor-cabinet-pagination-show-pacient">
+                    <span><x-setting column="doctor_my_patients" key="patient_visible"/></span>
+                    <select onchange="showPacients(this)">
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                    <span><x-setting column="doctor_my_patients" key="patient_total_on_page"/></span>
+                </div>
+                <div class="doctor-cabinet-pagination-sumpacient">
+                    <span>
+                        <x-setting column="doctor_my_patients" key="patient_visible"/> <span id="start"></span>-<span id ="end"></span> <x-setting column="doctor_my_patients" key="patients_from"/> <span id = "allPatients">0</span> <x-setting column="doctor_my_patients" key="patients"/>
+                    </span>
+                    <div class="pag-gap">
+                        <span onclick="toFirstPage(this)"><<</span><span onclick="decrimentPage(this)"><</span><span class="nums" id="pagination-num"></span><span onclick="incrimentPage(this)">></span><span onclick="toLastPage(this)">>></span>
+                        <div id="pagination-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <style>
+        #addPatient .modal-dialog {
+            max-width: 570px;
+        }
+    </style>
+    <style>
+        .display__none {
+            display: none;
+        }
+        .display__none.selected {
+            display: block;
+        }
+        .display__none.selected + .display__none {
+            display: block;
+        }
+        .display__none__div {
+            display: none !important;
+        }
+        .display__none__div.selected {
+            display:  block !important;
+        }
+        .dots {
+            display: none !important;
+            order: 1 !important;
+        }
+        .dots.active {
+            display: block !important;
+            order: 2 !important;
+
+        }
+        .dots.active + .display__none{
+            display: block !important;
+            order: 1 !important;
+        }
+    </style>
+    <script>
+          function openRow(val) {
+            val.parentElement.classList.toggle('active')
+        }
+    </script>
+    <script>
+
+        let patients = [
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 00:00:00", "firstName": "Test", "lastName": "Test", "dateOfBirth": "2022-12-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2022-08-25 10:00:00", "firstName": "Next", "lastName": "Test", "dateOfBirth": "2022-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+            { "last_visit": "2012-08-25 00:10:00", "firstName": "Prev", "lastName": "Test", "dateOfBirth": "2012-08-25", "gender": "male", "link_profile": "/test", "link_analyse": "foafowa" },
+        ]
+
+        let searched = patients
+        window.addEventListener('load', () => {
+            paginationNumCreater(patients)
+            showPacients(document.querySelector('.doctor-cabinet-pagination-show-pacient select'))
+            document.getElementById('allPatients').innerText = patients.length
+        })
+
+        function formatDate (date = null) {
+            return date.replace(/, /g, ' 00:')
+        }
+
+        function dataLoad (object) {
+            document.querySelectorAll('#placeData .row').forEach(element => {
+                element.remove()
+            });
+            object.map((item, index) => {
+                document.querySelector('#placeData').innerHTML += `
+                <div class="row" data-data=`+ item.last_visit +`>
+                    <div class="col col-2" onclick = "openRow(this)">`+ item.firstName +" "+ item.lastName +`</div>
+                    <div class="col col-2">`+ item.dateOfBirth +`</div>
+                    <div class="col col-2 _center">`+item.gender+`</div>
+                    <div class="col col-2 _py2 _my3 _center" id="status-btn">
+                        <a href="`+ item.link_profile +`">
+                            <img src="./images/person.png">
+                            <span><x-setting column="doctor_my_patients" key="patient_profile"/></span>
+                        </a>
+                    </div>
+                    <div class="col col-1 _center">
+                        <a href="`+ item.link_analyse +`" class="add-pacient">
+                            <span><x-setting column="doctor_my_patients" key="assign_analysis"/> </span>
+                        </a>
+                    </div>
+                </div>`
+            })
+        }
+
+
+        function sortByVisit($this) {
+
+            if($this.selectedIndex === 2) {
+                searched.sort((a, b) => new Date(formatDate(a.last_visit).replace(/(\d{2}).(\d{2})/, '$2.$1')) - new Date(formatDate(b.last_visit).replace(/(\d{2}).(\d{2})/, '$2.$1')));
+            }
+            else if ($this.selectedIndex === 1) {
+                searched.sort((a, b) => new Date(formatDate(b.last_visit).replace(/(\d{2}).(\d{2})/, '$2.$1')) - new Date(formatDate(a.last_visit).replace(/(\d{2}).(\d{2})/, '$2.$1')));
+            }
+
+
+            showPacients (document.querySelector('.doctor-cabinet-pagination-show-pacient select'))
+            document.querySelector('#pagination-num span') ? document.querySelector('#pagination-num span').click() : null
+        }
+
+        function sortByBirthday($this) {
+
+            if($this.selectedIndex === 2) {
+                searched.sort((a, b) => new Date(formatDate(a.dateOfBirth + ", 00:00").replace(/(\d{2}).(\d{2})/, '$2.$1')) - new Date(formatDate(b.dateOfBirth + ", 00:00").replace(/(\d{2}).(\d{2})/, '$2.$1')));
+            }
+            else if ($this.selectedIndex === 1) {
+                searched.sort((a, b) => new Date(formatDate(b.dateOfBirth + ", 00:00").replace(/(\d{2}).(\d{2})/, '$2.$1')) - new Date(formatDate(a.dateOfBirth + ", 00:00").replace(/(\d{2}).(\d{2})/, '$2.$1')));
+            }
+
+            showPacients (document.querySelector('.doctor-cabinet-pagination-show-pacient select'))
+            document.querySelector('#pagination-num span') ? document.querySelector('#pagination-num span').click() : null
+        }
+
+        function showPacients ($this) {
+            let paginationDate = []
+
+            searched.forEach((element, index) => {
+                if(index<+$this.selectedOptions[0].outerText){
+                    paginationDate.push(element)
+                }
+            });
+            dataLoad(paginationDate)
+            paginationNumCreater(searched)
+            document.querySelector('#pagination-num span') ? document.querySelector('#pagination-num span').click() : null
+
+        }
+
+        let maxElement = 0
+
+        function callPagination ($this) {
+            let pageNum = +$this.innerText
+
+            let notesOnPage = +document.querySelector('.doctor-cabinet-pagination-show-pacient select').selectedOptions[0].outerText
+            let start = (pageNum - 1) * notesOnPage
+            let end = start + notesOnPage
+            let notes = searched.slice(start, end)
+            let arraySpan = document.querySelectorAll('.doctor-cabinet-pagination-sumpacient .pag-gap .nums span')
+            if (document.getElementById('allNum')) {
+                maxElement = +document.getElementById('allNum').innerText
+                document.getElementById('allNum').classList.remove('selected')
+            }
+
+            document.getElementById('start').innerText = start+1
+            document.getElementById('end').innerText = end
+
+            if(arraySpan[arraySpan.length - 1] === $this) {
+                document.getElementById('end').innerText = searched.length
+            }
+
+            dataLoad(notes)
+
+            arraySpan.forEach(el => {
+                el.classList.remove('selected')
+            });
+            $this.classList.add('selected')
+
+            if ((maxElement - 1 === +$this.innerText) || (maxElement === +$this.innerText)) {
+                document.querySelectorAll('#pagination-num div').forEach(el => {
+                    el.classList.add('display__none__div')
+                });
+            }
+            else {
+                document.querySelectorAll('#pagination-num div').forEach(el => {
+                    el.classList.remove('display__none__div')
+                });
+            }
+
+            if (+$this.innerText > 2) {
+                $this.parentElement.querySelector('.dots').classList.add('active')
+            }
+            else {
+                $this.parentElement.querySelector('.dots').classList.remove('active')
+            }
+
+
+
+       }
+        function paginationNumCreater (object2) {
+            let paginNums = document.getElementById('pagination-num')
+            let selectNum = +document.querySelector('.doctor-cabinet-pagination-show-pacient select').selectedOptions[0].outerText
+            paginNums.innerHTML = ''
+            if(object2.length > selectNum) {
+                let numbersLength = Math.ceil(object2.length / selectNum)
+                paginNums.innerHTML +=`<div class='dots'>...</div>`
+                for(let i=1; i<numbersLength+1; i++) {
+                    paginNums.innerHTML += `
+                        <span class="display__none" onclick="callPagination(this)">`+ i +`</span>
+                        `
+                    if(i>3) {
+                        if(i == numbersLength) {
+                            paginNums.innerHTML += `
+                                <div> ... </div>
+                                <div id="allNum" onclick="callPagination(this)">`+ numbersLength +`</div>
+                            `
+                        }
+
+                    }
+
+                }
+            }
+       }
+
+       function incrimentPage($this) {
+           let $paginations = $this.parentElement.querySelectorAll('#pagination-num span')
+           let clickNum = +$this.parentElement.querySelector('#pagination-num .selected').innerText
+           if(clickNum < $paginations.length){
+                $paginations[clickNum].click()
+           }
+           clickNum++
+       }
+
+       function decrimentPage($this) {
+        let $paginations = $this.parentElement.querySelectorAll('#pagination-num span')
+        let clickNum = +$this.parentElement.querySelector('#pagination-num .selected').innerText
+
+        clickNum--
+        clickNum--
+           if(clickNum < $paginations.length){
+                $paginations[clickNum].click()
+           }
+       }
+
+       function toFirstPage($this) {
+            let $paginations = $this.parentElement.querySelectorAll('#pagination-num span')
+            $paginations[0].click()
+       }
+
+       function toLastPage($this) {
+            let $paginations = $this.parentElement.querySelectorAll('#pagination-num span')
+            $paginations[$paginations.length-1].click()
+       }
+
+       function searchPatient($this) {
+            let push = []
+            let searchName
+            patients.forEach(e => {
+                searchName = e.firstName + ' ' + e.lastName
+               if(searchName.toLowerCase().includes($this.value.toLowerCase())) {
+                   push.push(e)
+               }
+            })
+
+            let paginationDate = []
+
+            push.forEach((element, index) => {
+                if(index<+document.querySelector('.doctor-cabinet-pagination-show-pacient select').selectedOptions[0].outerText){
+                    paginationDate.push(element)
+                }
+            });
+
+            dataLoad(paginationDate)
+            console.log(paginationDate);
+            paginationNumCreater(push)
+
+            searched = push
+            callPagination(document.querySelector('#pagination-num span'))
+
+            document.getElementById('allPatients').innerText = push.length
+
+       }
+
+    </script>
+</body>
+</html>
